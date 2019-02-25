@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import Message from './components/Message';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: []
+    }
+  }
+
+  componentWillMount() {
+    fetch('http://localhost:8000/notes/messages/')
+    .then(results => {
+      return results.json();
+    }).then(data => {
+      this.setState({
+        messages: data
+      });
+    })
+  }
+
   render() {
+    let content = this.state.messages.map(msg => {
+      return <Message key={msg.id} text={msg.text} />
+    })
+    if (this.state.messages.length === 0) {
+      content = <div className="ui active text loader">Loading</div>;
+    }
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div style={{padding: "1em", textAlign: "center"}}>
+        <h1 className="ui header">Messages</h1>
+        {content}
       </div>
     );
   }
