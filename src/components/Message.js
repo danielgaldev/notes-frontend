@@ -4,7 +4,7 @@ class Message extends Component {
 
   render() {
     return(
-      <div className="ui segment">
+      <div className="ui compact segment centered" style={{margin: "1em auto"}}>
         <p>{this.props.text}</p>
       </div>
     );

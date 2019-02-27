@@ -29,8 +29,8 @@ class App extends Component {
       content = <div className="ui active text loader">Loading</div>;
     }
     return (
-      <div style={{padding: "1em", textAlign: "center"}}>
-        <h1 className="ui header">Messages</h1>
+      <div style={{padding: "1em"}}>
+        <h1 className="ui centered header">Messages</h1>
         {content}
       </div>
     );
