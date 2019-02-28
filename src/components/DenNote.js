@@ -1,12 +1,15 @@
-import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
-import {notes} from '../actions'
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {notes} from '../actions';
 
 class DenNote extends Component {
     state = {
         text: "",
         updateNoteId: null
+    }
+
+    componentDidMount() {
+        this.props.fetchNotes();
     }
 
     resetForm = () => {
@@ -87,6 +90,9 @@ const mapDispatchToProps = dispatch => {
     },
     deleteNote: (id) => {
         dispatch(notes.deleteNote(id));
+    },
+    fetchNotes: () => {
+        dispatch(notes.fetchNotes());
     }
   }
 }

@@ -1,6 +1,4 @@
-const initialState = [
-    {text: "Write code!"}
-];
+const initialState = [];
 
 
 export default function notes(state=initialState, action) {
@@ -9,6 +7,9 @@ export default function notes(state=initialState, action) {
   switch (action.type) {
     case 'ADD_NOTE':
       return [...state, {text: action.text}];
+
+    case 'FETCH_NOTES':
+      return [...state, ...action.notes];
 
     case 'UPDATE_NOTE':
       console.log(action);
