@@ -1,38 +1,27 @@
 import React, { Component } from 'react';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
-import Message from './components/Message';
+import NotFound from './components/NotFound';
+import DenNote from './components/DenNote';
+import denApp from "./reducers";
+
+
+let store = createStore(denApp, applyMiddleware(thunk));
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: []
-    }
-  }
-
-  componentWillMount() {
-    fetch('http://localhost:8000/notes/messages/')
-    .then(results => {
-      return results.json();
-    }).then(data => {
-      this.setState({
-        messages: data
-      });
-    })
-  }
-
   render() {
-    let content = this.state.messages.map(msg => {
-      return <Message key={msg.id} text={msg.text} />
-    })
-    if (this.state.messages.length === 0) {
-      content = <div className="ui active text loader">Loading</div>;
-    }
     return (
-      <div style={{padding: "1em"}}>
-        <h1 className="ui centered header">Messages</h1>
-        {content}
-      </div>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={DenNote} />
+            <Route component={NotFound} />
+          </Switch>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }
