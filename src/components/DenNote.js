@@ -33,13 +33,15 @@ class DenNote extends Component {
   render() {
     return (
       <div>
-        <div className="ui top attached borderless compact menu">
-          <h1 className="header item">
+        <div className="ui top borderless fixed menu">
+          <h3 className="header item">
             <i className="sticky note icon normal"></i>
             DenNote
-          </h1>
+          </h3>
         </div>
-        <div className="ui container segment">
+        <div 
+          className="ui container segment"
+          style={{marginTop: "5em"}}>
         <form className="ui form" onSubmit={this.submitNote}>
             <div className="field">
               <h3 className="ui header">Submit your own note!</h3>
