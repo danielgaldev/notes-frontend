@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import notes from "./notes";
+import semesters from "./semesters";
 import auth from "./auth";
 
 
-const ponyApp = combineReducers({
-    notes, auth,
+const semestr = combineReducers({
+    semesters, auth,
 })
 
-export default ponyApp;
+export default semestr;
