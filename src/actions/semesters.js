@@ -1,5 +1,6 @@
 const baseURL = 'http://localhost:8000/api/v1/'
 
+
 export const fetchSemesters = () => {
   return (dispatch, getState) => {
     let headers = { "Content-Type": "application/json" };
@@ -9,7 +10,7 @@ export const fetchSemesters = () => {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    return fetch(baseURL.concat('semester/'), { headers, })
+    return fetch(baseURL.concat('semesters/'), { headers, })
       .then(res => {
         if (res.status < 500) {
           return res.json().then(data => {
@@ -22,7 +23,6 @@ export const fetchSemesters = () => {
       })
       .then(res => {
         if (res.status === 200) {
-          console.log(res.data);
           return dispatch({ type: 'FETCH_SEMESTERS', semesters: res.data });
         } else if (res.status === 401 || res.status === 403) {
           dispatch({ type: "AUTHENTICATION_ERROR", data: res.data });
@@ -32,39 +32,8 @@ export const fetchSemesters = () => {
   }
 }
 
-export const addNote = text => {
-  return (dispatch, getState) => {
-    let headers = { "Content-Type": "application/json" };
-    let { token } = getState().auth;
 
-    if (token) {
-      headers["Authorization"] = `Token ${token}`;
-    }
-
-    let body = JSON.stringify({ text, });
-    return fetch("http://localhost:8000/api/notes/", { headers, method: "POST", body })
-      .then(res => {
-        if (res.status < 500) {
-          return res.json().then(data => {
-            return { status: res.status, data };
-          })
-        } else {
-          console.log("Server Error!");
-          throw res;
-        }
-      })
-      .then(res => {
-        if (res.status === 201) {
-          return dispatch({ type: 'ADD_NOTE', note: res.data });
-        } else if (res.status === 401 || res.status === 403) {
-          dispatch({ type: "AUTHENTICATION_ERROR", data: res.data });
-          throw res.data;
-        }
-      })
-  }
-}
-
-export const updateNote = (index, text) => {
+export const deleteSemester = index => {
   return (dispatch, getState) => {
 
     let headers = { "Content-Type": "application/json" };
@@ -74,44 +43,14 @@ export const updateNote = (index, text) => {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    let body = JSON.stringify({ text, });
-    let noteId = getState().notes[index].id;
+    console.log(getState().semesters);
+    console.log(index);
 
-    return fetch(`http://localhost:8000/api/notes/${noteId}/`, { headers, method: "PUT", body })
-      .then(res => {
-        if (res.status < 500) {
-          return res.json().then(data => {
-            return { status: res.status, data };
-          })
-        } else {
-          console.log("Server Error!");
-          throw res;
-        }
-      })
-      .then(res => {
-        if (res.status === 200) {
-          return dispatch({ type: 'UPDATE_NOTE', note: res.data, index });
-        } else if (res.status === 401 || res.status === 403) {
-          dispatch({ type: "AUTHENTICATION_ERROR", data: res.data });
-          throw res.data;
-        }
-      })
-  }
-}
+    let semId = getState().semesters[index].id;
 
-export const deleteNote = index => {
-  return (dispatch, getState) => {
+    let url = baseURL.concat(`semesters/${semId}/`)
 
-    let headers = { "Content-Type": "application/json" };
-    let { token } = getState().auth;
-
-    if (token) {
-      headers["Authorization"] = `Token ${token}`;
-    }
-
-    let noteId = getState().notes[index].id;
-
-    return fetch(`http://localhost:8000/api/notes/${noteId}/`, { headers, method: "DELETE" })
+    return fetch(url, { headers, method: "DELETE" })
       .then(res => {
         if (res.status === 204) {
           return { status: res.status, data: {} };
@@ -126,7 +65,7 @@ export const deleteNote = index => {
       })
       .then(res => {
         if (res.status === 204) {
-          return dispatch({ type: 'DELETE_NOTE', index });
+          return dispatch({ type: 'DELETE_SEMESTER', index });
         } else if (res.status === 401 || res.status === 403) {
           dispatch({ type: "AUTHENTICATION_ERROR", data: res.data });
           throw res.data;

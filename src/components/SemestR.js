@@ -12,25 +12,8 @@ class SemestR extends Component {
     this.props.fetchSemesters();
   }
 
-  resetForm = () => {
-    this.setState({ text: "", updateNoteId: null });
-  }
-
-  selectForEdit = (id) => {
-    let note = this.props.notes[id];
-    this.setState({ text: note.text, updateNoteId: id });
-  }
-
-  submitNote = (e) => {
-    e.preventDefault();
-    if (this.state.updateNoteId === null) {
-      this.props.addNote(this.state.text).then(this.resetForm);
-    } else {
-      this.props.updateNote(this.state.updateNoteId, this.state.text).then(this.resetForm);
-    }
-  }
-
   render() {
+    console.log(this.props.semesters)
     return (
       <div>
         <div className="ui top borderless fixed menu">
@@ -45,12 +28,12 @@ class SemestR extends Component {
           <h3 className="ui header">Semesters</h3>
           <table className="ui very basic table unstackable">
             <tbody>
-              {this.props.semesters.map((semester) => (
-                <tr key={`semester_${semester.id}`}>
+              {this.props.semesters.map((semester, index) => (
+                <tr key={`semester_${index}`}>
                   <td>{semester.number.toString().concat('. semester')}</td>
                   <td className="collapsing"><button
                     className="ui icon button"
-                    onClick={() => this.props.deleteNote(semester.id)}>
+                    onClick={() => this.props.deleteSemester(index)}>
                     <i className="trash alternate icon"></i>
                   </button></td>
                 </tr>
@@ -71,17 +54,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // addNote: (text) => {
-    //   return dispatch(notes.addNote(text));
-    // },
-    // updateNote: (id, text) => {
-    //   return dispatch(notes.updateNote(id, text));
-    // },
-    // deleteNote: (id) => {
-    //   return dispatch(notes.deleteNote(id));
-    // },
     fetchSemesters: () => {
       return dispatch(semesters.fetchSemesters());
+    },
+    deleteSemester: (index) => {
+      return dispatch(semesters.deleteSemester(index));
     }
   }
 }
