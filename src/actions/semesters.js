@@ -43,9 +43,6 @@ export const deleteSemester = index => {
       headers["Authorization"] = `Token ${token}`;
     }
 
-    console.log(getState().semesters);
-    console.log(index);
-
     let semId = getState().semesters[index].id;
 
     let url = baseURL.concat(`semesters/${semId}/`)

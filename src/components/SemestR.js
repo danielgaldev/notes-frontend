@@ -13,7 +13,6 @@ class SemestR extends Component {
   }
 
   render() {
-    console.log(this.props.semesters)
     return (
       <div>
         <div className="ui top borderless fixed menu">
