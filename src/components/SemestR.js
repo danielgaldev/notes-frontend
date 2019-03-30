@@ -22,7 +22,7 @@ class SemestR extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{padding: '2em', paddingTop: '5em'}}>
         <Menu fixed='top'>
           <Menu.Item>
             <Header>
