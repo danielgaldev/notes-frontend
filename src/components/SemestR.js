@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
+import { Menu, Segment, Header, Table, Button, Icon } from 'semantic-ui-react'
+
 import { connect } from 'react-redux';
 import { semesters } from '../actions';
+
+const CreateSemester = () => (
+  <div>
+    asd
+  </div>
+)
 
 class SemestR extends Component {
   state = {
@@ -15,31 +23,35 @@ class SemestR extends Component {
   render() {
     return (
       <div>
-        <div className="ui top borderless fixed menu">
-          <h3 className="header item">
-            <i className="sticky note icon normal"></i>
-            SemestR
-          </h3>
-        </div>
-        <div
-          className="ui container segment"
-          style={{ marginTop: "5em" }}>
-          <h3 className="ui header">Semesters</h3>
-          <table className="ui very basic table unstackable">
-            <tbody>
+        <Menu fixed='top'>
+          <Menu.Item>
+            <Header>
+              <Icon name='sticky note' size='large' />
+              SemestR
+            </Header>
+          </Menu.Item>
+        </Menu>
+        <Segment>
+          <Header>
+            Semesters
+          </Header>
+          <Table>
+            <Table.Body>
               {this.props.semesters.map((semester, index) => (
-                <tr key={`semester_${index}`}>
-                  <td>{semester.number.toString().concat('. semester')}</td>
-                  <td className="collapsing"><button
-                    className="ui icon button"
-                    onClick={() => this.props.deleteSemester(index)}>
-                    <i className="trash alternate icon"></i>
-                  </button></td>
-                </tr>
+                <Table.Row key={`semester_${index}`}>
+                  <Table.Cell>
+                    {semester.number.toString().concat('. semester')}
+                  </Table.Cell>
+                  <Table.Cell collapsing>
+                    <Button
+                      onClick={() => this.props.deleteSemester(index)}
+                      icon='trash alternate' />
+                  </Table.Cell>
+                </Table.Row>
               ))}
-            </tbody>
-          </table>
-        </div>
+            </Table.Body>
+          </Table>
+        </Segment>
       </div>
     )
   }
