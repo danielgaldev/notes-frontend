@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Segment, Header, Table, Button, Icon } from 'semantic-ui-react'
+import { Menu, Container, Header, Table, Button, Icon } from 'semantic-ui-react'
 
 import { connect } from 'react-redux';
 import { semesters } from '../actions';
@@ -23,7 +23,7 @@ class SemestR extends Component {
   render() {
     return (
       <div style={{padding: '2em', paddingTop: '5em'}}>
-        <Menu fixed='top'>
+        <Menu borderless fixed='top'>
           <Menu.Item>
             <Header>
               <Icon name='sticky note' size='large' />
@@ -31,14 +31,15 @@ class SemestR extends Component {
             </Header>
           </Menu.Item>
         </Menu>
-        <Segment>
+        <Container text>
           <Header>
             Semesters
           </Header>
-          <Table>
+          <Table selectable unstackable>
             <Table.Body>
               {this.props.semesters.map((semester, index) => (
-                <Table.Row key={`semester_${index}`}>
+                <Table.Row
+                  key={`semester_${index}`}>
                   <Table.Cell>
                     {semester.number.toString().concat('. semester')}
                   </Table.Cell>
@@ -51,7 +52,7 @@ class SemestR extends Component {
               ))}
             </Table.Body>
           </Table>
-        </Segment>
+        </Container>
       </div>
     )
   }
