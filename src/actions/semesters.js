@@ -33,6 +33,28 @@ export const fetchSemesters = () => {
 }
 
 
+export const addSemester = number => {
+  return (dispatch, getState) => {
+    let headers = { "Content-Type": "application/json" };
+    let body = JSON.stringify({ number, });
+    let { token } = getState().auth;
+
+    if (token) {
+      headers["Authorization"] = `Token ${token}`;
+    }
+
+    return fetch(baseURL.concat('semesters/'), { headers, method: "POST", body })
+      .then(res => res.json())
+      .then(semester => {
+        return dispatch({
+          type: 'ADD_SEMESTER',
+          semester
+        })
+      })
+  }
+}
+
+
 export const deleteSemester = index => {
   return (dispatch, getState) => {
 

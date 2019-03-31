@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Icon, Modal, Form } from 'semantic-ui-react';
 
+import { connect } from 'react-redux';
+import { semesters } from '../actions';
+
 
 class NewSemester extends Component {
 
@@ -15,6 +18,11 @@ class NewSemester extends Component {
   close = () => { this.setState({ open: false }) }
   open = () => { this.setState({ open: true }) }
 
+  handleSave() {
+    this.props.addSemester(this.state.number);
+    this.close();
+  }
+
   render() {
     return (
       <Modal
@@ -22,7 +30,7 @@ class NewSemester extends Component {
           <Button onClick={this.open}>
             <Icon name='plus' />
             Add Semester
-            </Button>
+          </Button>
         }
         open={this.state.open}
         onClose={this.close}>
@@ -41,7 +49,9 @@ class NewSemester extends Component {
           <Button onClick={this.close}>
             Cancel
           </Button>
-          <Button primary onClick={() => console.log('asd')}>
+          <Button
+            primary
+            onClick={this.handleSave.bind(this)}>
             <Icon name='save' />
             Save
           </Button>
@@ -51,4 +61,18 @@ class NewSemester extends Component {
   }
 }
 
-export default NewSemester;
+const mapStateToProps = state => {
+  return {
+    semesters: state.semesters,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addSemester: (number) => {
+      return dispatch(semesters.addSemester(number));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewSemester);
