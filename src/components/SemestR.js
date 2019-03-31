@@ -3,12 +3,8 @@ import { Menu, Container, Header, Table, Button, Icon } from 'semantic-ui-react'
 
 import { connect } from 'react-redux';
 import { semesters } from '../actions';
+import NewSemester from './NewSemester';
 
-const CreateSemester = () => (
-  <div>
-    asd
-  </div>
-)
 
 class SemestR extends Component {
   state = {
@@ -32,6 +28,7 @@ class SemestR extends Component {
           </Menu.Item>
         </Menu>
         <Container text>
+          <NewSemester />
           <Header>
             Semesters
           </Header>
