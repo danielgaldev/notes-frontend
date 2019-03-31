@@ -9,6 +9,9 @@ export default function notes(state = initialState, action) {
     case 'FETCH_SEMESTERS':
       return [...state, ...action.semesters];
 
+    case 'ADD_SEMESTER':
+      return [...state, action.semester];
+
     case 'DELETE_SEMESTER':
       semesterList.splice(action.index, 1);
       return semesterList;
