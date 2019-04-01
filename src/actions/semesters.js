@@ -92,3 +92,10 @@ export const deleteSemester = index => {
       })
   }
 }
+
+
+export const removeAllSemesters = () => {
+  return dispatch => {
+    dispatch({ type: 'REMOVE_ALL_SEMESTERS' });
+  }
+}

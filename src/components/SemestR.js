@@ -11,6 +11,11 @@ class SemestR extends Component {
     this.props.fetchSemesters();
   }
 
+  handleLogout() {
+    this.props.logout();
+    this.props.removeAll();
+  }
+
   render() {
     return (
       <div style={{ padding: '2em', paddingTop: '5em' }}>
@@ -27,7 +32,7 @@ class SemestR extends Component {
           <Menu.Item
             position='right'
             name='logout'
-            onClick={this.props.logout}
+            onClick={this.handleLogout.bind(this)}
           />
         </Menu>
         <Container text>
@@ -75,6 +80,9 @@ const mapDispatchToProps = dispatch => {
     },
     logout: () => {
       return dispatch(auth.logout());
+    },
+    removeAll: () => {
+      return dispatch(semesters.removeAllSemesters());
     }
   }
 }
