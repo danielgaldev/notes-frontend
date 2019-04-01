@@ -21,28 +21,28 @@ class Login extends Component {
       return <Redirect to="/" />
     }
     return (
-      <div class="ui container segment">
-        <form class="ui form" onSubmit={this.onSubmit}>
+      <div className="ui container segment">
+        <form className="ui form" onSubmit={this.onSubmit}>
           {this.props.errors.length > 0 && (
             <div>
               {this.props.errors.map(error => (
-                <div class="ui visible warning message" key={error.field}>
+                <div className="ui visible warning message" key={error.field}>
                   {error.message}
                 </div>
               ))}
             </div>
           )}
-          <div class="field">
+          <div className="field">
             <label>Username</label>
             <input type="text" id="username" placeholder="Username"
               onChange={e => this.setState({ username: e.target.value })} />
           </div>
-          <div class="field">
+          <div className="field">
             <label>Password</label>
             <input type="password" id="password" placeholder="Password"
               onChange={e => this.setState({ password: e.target.value })} />
           </div>
-          <button class="ui button" type="submit">Login</button>
+          <button className="ui button" type="submit">Login</button>
           <p>
             Don't have an account? <Link to="/register">Register</Link>
           </p>
@@ -68,7 +68,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     login: (username, password) => {
-      return dispatch(auth.login(username, password));
+      dispatch(auth.login(username, password));
+      return dispatch(auth.loadUser());
     }
   };
 }
