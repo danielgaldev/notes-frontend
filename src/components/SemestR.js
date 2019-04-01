@@ -40,7 +40,7 @@ class SemestR extends Component {
           <Header>
             Semesters
           </Header>
-          <Table selectable unstackable>
+          <Table selectable unstackable color='blue'>
             <Table.Body>
               {this.props.semesters.map((semester, index) => (
                 <Table.Row

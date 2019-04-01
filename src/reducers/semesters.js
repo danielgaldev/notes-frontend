@@ -17,7 +17,6 @@ export default function notes(state = initialState, action) {
       return semesterList;
 
     case 'REMOVE_ALL_SEMESTERS':
-      console.log(state);
       return [];
 
     default:

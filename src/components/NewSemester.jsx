@@ -25,9 +25,9 @@ class NewSemester extends Component {
 
   render() {
     return (
-      <Modal
+      <Modal size='mini'
         trigger={
-          <Button onClick={this.open}>
+          <Button primary onClick={this.open}>
             <Icon name='plus' />
             Add Semester
           </Button>
