@@ -1,3 +1,4 @@
-import * as notes from './notes'
+import * as semesters from "./semesters";
+import * as auth from "./auth";
 
-export {notes}
+export {semesters, auth}

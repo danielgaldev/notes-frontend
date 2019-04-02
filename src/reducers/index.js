@@ -1,8 +1,10 @@
-import {combineReducers} from 'redux';
-import notes from "./notes";
+import { combineReducers } from 'redux';
+import semesters from "./semesters";
+import auth from "./auth";
 
-const denApp = combineReducers({
-    notes,
+
+const semestr = combineReducers({
+    semesters, auth,
 })
 
-export default denApp;
+export default semestr;
