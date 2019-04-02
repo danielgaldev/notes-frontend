@@ -16,6 +16,9 @@ export default function notes(state = initialState, action) {
       semesterList.splice(action.index, 1);
       return semesterList;
 
+    case 'REMOVE_ALL_SEMESTERS':
+      return [];
+
     default:
       return state;
   }

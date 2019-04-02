@@ -1,38 +1,46 @@
 import React, { Component } from 'react';
-import { Menu, Container, Header, Table, Button, Icon } from 'semantic-ui-react'
-
+import { Container, Header, Table, Button } from 'semantic-ui-react'
+import { Menu, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux';
-import { semesters } from '../actions';
+import { semesters, auth } from '../actions';
 import NewSemester from './NewSemester';
 
 
 class SemestR extends Component {
-  state = {
-    text: "",
-    updateNoteId: null
-  }
-
   componentDidMount() {
     this.props.fetchSemesters();
   }
 
+  handleLogout() {
+    this.props.logout();
+    this.props.removeAll();
+  }
+
   render() {
     return (
-      <div style={{padding: '2em', paddingTop: '5em'}}>
+      <div style={{ padding: '2em', paddingTop: '5em' }}>
         <Menu borderless fixed='top'>
           <Menu.Item>
             <Header>
               <Icon name='sticky note' size='large' />
               SemestR
-            </Header>
+          </Header>
           </Menu.Item>
+          <Menu.Item position='right'>
+            {this.props.user.username}
+          </Menu.Item>
+          <Menu.Item
+            position='right'
+            name='logout'
+            onClick={this.handleLogout.bind(this)}
+          />
         </Menu>
         <Container text>
           <NewSemester />
           <Header>
             Semesters
           </Header>
-          <Table selectable unstackable>
+          <Table selectable unstackable color='blue'>
             <Table.Body>
               {this.props.semesters.map((semester, index) => (
                 <Table.Row
@@ -58,6 +66,7 @@ class SemestR extends Component {
 const mapStateToProps = state => {
   return {
     semesters: state.semesters,
+    user: state.auth.user
   }
 }
 
@@ -68,6 +77,12 @@ const mapDispatchToProps = dispatch => {
     },
     deleteSemester: (index) => {
       return dispatch(semesters.deleteSemester(index));
+    },
+    logout: () => {
+      return dispatch(auth.logout());
+    },
+    removeAll: () => {
+      return dispatch(semesters.removeAllSemesters());
     }
   }
 }

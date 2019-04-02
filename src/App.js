@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
-
 import { Provider, connect } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
@@ -50,7 +49,7 @@ class RootContainerComponent extends Component {
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth,
+    auth: state.auth
   }
 }
 

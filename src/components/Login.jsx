@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-
+import { Header, Button, Form, Icon, Segment, Divider, Grid } from 'semantic-ui-react'
 import { auth } from "../actions";
 
 class Login extends Component {
@@ -11,8 +11,7 @@ class Login extends Component {
     password: "",
   }
 
-  onSubmit = e => {
-    e.preventDefault();
+  onSubmit() {
     this.props.login(this.state.username, this.state.password);
   }
 
@@ -21,33 +20,37 @@ class Login extends Component {
       return <Redirect to="/" />
     }
     return (
-      <div class="ui container segment">
-        <form class="ui form" onSubmit={this.onSubmit}>
-          {this.props.errors.length > 0 && (
-            <div>
-              {this.props.errors.map(error => (
-                <div class="ui visible warning message" key={error.field}>
-                  {error.message}
-                </div>
-              ))}
-            </div>
-          )}
-          <div class="field">
-            <label>Username</label>
-            <input type="text" id="username" placeholder="Username"
-              onChange={e => this.setState({ username: e.target.value })} />
-          </div>
-          <div class="field">
-            <label>Password</label>
-            <input type="password" id="password" placeholder="Password"
-              onChange={e => this.setState({ password: e.target.value })} />
-          </div>
-          <button class="ui button" type="submit">Login</button>
-          <p>
-            Don't have an account? <Link to="/register">Register</Link>
-          </p>
-        </form>
-      </div>
+      <Grid style={{ padding: '4em' }} centered verticalAlign='middle'>
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Segment color='blue' >
+            <Header as='h1' icon textAlign='center'>
+              <Icon name='student' circular />
+              <Header.Content>SemestR</Header.Content>
+            </Header>
+            <Form>
+              <Form.Field>
+                <label>Username</label>
+                <input placeholder='username'
+                  onChange={e => this.setState({ username: e.target.value })} />
+              </Form.Field>
+              <Form.Field>
+                <label>Password</label>
+                <input type='password' placeholder='password'
+                  onChange={e => this.setState({ password: e.target.value })} />
+              </Form.Field>
+              <div style={{ textAlign: 'center' }}>
+                <Button primary fluid onClick={this.onSubmit.bind(this)}>
+                  Login
+                </Button>
+              </div>
+              <Divider />
+              <p>
+                Don't have an account? <Link to="/register">Register</Link>
+              </p>
+            </Form>
+          </Segment>
+        </Grid.Column>
+      </Grid>
     )
   }
 }
@@ -68,7 +71,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     login: (username, password) => {
-      return dispatch(auth.login(username, password));
+      dispatch(auth.login(username, password));
+      return dispatch(auth.loadUser());
     }
   };
 }
