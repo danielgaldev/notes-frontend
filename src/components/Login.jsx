@@ -27,6 +27,9 @@ class Login extends Component {
               <Icon name='student' circular />
               <Header.Content>SemestR</Header.Content>
             </Header>
+            <Header as='h3' textAlign='center'>
+              <Header.Content>Login</Header.Content>
+            </Header>
             <Form>
               <Form.Field>
                 <label>Username</label>
